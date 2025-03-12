@@ -1,9 +1,8 @@
 <nav class="navbar navbar-light bg-light">
     <div class="container">
-        <a href="#" class="navbar-brand">Laravel Guide</a>
+        <a href="#" class="navbar-brand">Blog</a>
         <ul class="nav d-flex">
-            <li class="nav-item"><a href="#" class="nav-link">Products</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">About us</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">login</a></li>
         </ul>
     </div>
 </nav>
