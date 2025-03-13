@@ -20,7 +20,6 @@ return new class extends Migration
             $table->timestamp('registration_date')->default(now());
             $table->boolean('is_approved')->default(false); // Default false, needs admin approval
             $table->enum('role', ['admin', 'contributor'])->default('contributor'); // Default role is contributor
-            $table->timestamps();
         });
     }
 
