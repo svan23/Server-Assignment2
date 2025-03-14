@@ -17,7 +17,7 @@
                             <p><strong>Start Date:</strong> {{ $article->start_date }}</p>
                             <p><strong>End Date:</strong> {{ $article->end_date }}</p>
                             <p>{{ \Illuminate\Support\Str::limit(strip_tags($article->body), 100, '...') }}</p>
-                            <a href="{{ url('/article/display', ['id' => $article->article_id]) }}" class="btn btn-primary">Read More</a>
+                            <a href="{{ url('/articles', ['id' => $article->article_id]) }}" class="btn btn-primary">Read More</a>
                             @if(session('username') && session('username') === $article->contributor_username)
                                 <a href="{{ url('/article/update', ['id' => $article->article_id]) }}" class="btn btn-secondary">Update</a>
                                 <a href="{{ url('/article/delete_process', ['id' => $article->article_id]) }}" class="btn btn-danger">Delete</a>

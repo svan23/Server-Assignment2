@@ -11,3 +11,5 @@ Route::get('/login', function () {
 });
 
 Route::get('/', [ArticlesController::class, 'index'])->name('index');
+
+Route::get('/articles/{id}', [ArticlesController::class, 'show']);
