@@ -3,8 +3,13 @@
     <div class="container d-flex justify-content-center align-items-center mt-5">
         <div class="card p-4 shadow-lg" style="width: 22rem;">
             <h3 class="text-center mb-3">Login</h3>
-
+            @if (session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
             <form method="post" action="/login">
+                @csrf
                 <div class="mb-3">
                     <label for="username" class="form-label">Username</label>
                     <input type="text" name="username" id="username" class="form-control" required>

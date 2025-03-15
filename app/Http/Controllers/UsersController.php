@@ -7,6 +7,26 @@ use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
+
+    public function login(Request $request)
+    {
+        $credentials = $request->only('username', 'password');
+        $user = User::where('username', operator: $credentials['username'])->first();
+
+        if ($user && password_verify($credentials['password'], $user->password)) {
+            session(['username' => $user->username]);
+            return redirect()->route('index');
+        }
+
+        return redirect()->back()->with('error', 'Invalid credentials.');
+    }
+
+    public function logout(Request $request)
+    {
+        $request->session()->forget('username');
+        return redirect()->route('index');
+    }
+
     /**
      * Display a listing of the resource.
      */
