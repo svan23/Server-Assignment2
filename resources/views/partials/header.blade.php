@@ -1,8 +1,13 @@
 <nav class="navbar navbar-light bg-light">
     <div class="container">
         <a href="/" class="navbar-brand">Blog</a>
-        <ul class="nav d-flex">
+        <ul class="nav d-flex align-items-center ms-auto">
             @if(session('username'))
+                @if(session('role') === 'admin')
+                    <li class="nav-item">
+                        <a href="/admin/users" class="nav-link">Admin</a>
+                    </li>
+                @endif
                 <li class="nav-item">
                     <form method="post" action="/logout">
                         @csrf

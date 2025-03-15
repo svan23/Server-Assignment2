@@ -11,13 +11,21 @@ class UsersController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->only('username', 'password');
-        $user = User::where('username', operator: $credentials['username'])->first();
-
+        $user = User::where('username', $credentials['username'])->first();
+    
         if ($user && password_verify($credentials['password'], $user->password)) {
-            session(['username' => $user->username]);
+            if (! $user->is_approved) {
+                return redirect()->back()->with('error', 'Account not approved by the admin.');
+            }
+            session([
+                'username'   => $user->username,
+                'role'       => $user->role,
+                'first_name' => $user->first_name,
+                'last_name'  => $user->last_name,
+            ]);
             return redirect()->route('index');
         }
-
+    
         return redirect()->back()->with('error', 'Invalid credentials.');
     }
 
@@ -53,6 +61,37 @@ class UsersController extends Controller
         ]);
 
         return redirect('/login')->with('success', 'Registration successful. Please login.');
+    }
+
+    public function adminIndex()
+    {
+        // Only allow admin users to access this page.
+        $admin = User::where('username', session('username'))->first();
+        if (!$admin || $admin->role !== 'admin') {
+            abort(403, 'Unauthorized access');
+        }
+
+        $users = User::all();
+        return view('admin.users', compact('users'));
+    }
+
+    public function adminUpdate(Request $request, $id)
+    {
+        // Only allow admin users to update user accounts.
+        $admin = User::where('username', session('username'))->first();
+        if (!$admin || $admin->role !== 'admin') {
+            abort(403, 'Unauthorized access');
+        }
+
+        $validated = $request->validate([
+             'is_approved' => 'required|boolean',
+             'role'        => 'required|in:admin,contributor'
+        ]);
+
+        $user = User::findOrFail($id);
+        $user->update($validated);
+
+        return redirect()->back()->with('success', 'User updated successfully.');
     }
 
     /**

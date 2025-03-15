@@ -21,3 +21,6 @@ Route::post('/register', [UsersController::class, 'register']);
 Route::get('/', [ArticlesController::class, 'index'])->name('index');
 
 Route::get('/articles/{id}', [ArticlesController::class, 'show']);
+
+Route::get('/admin/users', [UsersController::class, 'adminIndex']);
+Route::post('/admin/users/{id}', [UsersController::class, 'adminUpdate']);
