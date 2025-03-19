@@ -4,6 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\UsersController;
 
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
+
 Route::get('/login', function () {
     return view('login');
 });
