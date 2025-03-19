@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('password'); // Encrypted password
             $table->string('first_name');
             $table->string('last_name');
-            $table->timestamp('registration_date')->default(now());
+            $table->timestamp('registration_date')->useCurrent();
             $table->boolean('is_approved')->default(false); // Default false, needs admin approval
             $table->enum('role', ['admin', 'contributor'])->default('contributor'); // Default role is contributor
         });

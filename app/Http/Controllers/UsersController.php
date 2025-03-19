@@ -38,19 +38,21 @@ class UsersController extends Controller
 
     public function register(Request $request)
     {
-        // Validate the registration data
         $request->validate([
             'username'   => 'required|email|unique:users,username',
             'password'   => [
                 'required',
+                'bail', // stop on first failure
                 'min:8',
                 'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).+$/'
             ],
             'first_name' => 'required|string|max:255',
             'last_name'  => 'required|string|max:255'
+        ], [
+            'password.min'   => 'Password must be at least 8 characters long.',
+            'password.regex' => 'Password must include at least one uppercase letter, one lowercase letter, one number, and one special character.',
         ]);
 
-        // Create the new user (using password_hash for simplicity; you can also use bcrypt helper)
         User::create([
             'username'      => $request->username,
             'password'      => password_hash($request->password, PASSWORD_DEFAULT),
