@@ -20,6 +20,15 @@ Route::post('/register', [UsersController::class, 'register']);
 
 Route::get('/', [ArticlesController::class, 'index'])->name('index');
 
+// Place the create route here before the dynamic {id} route
+Route::get('/articles/create', [ArticlesController::class, 'create']);
+Route::post('/articles', [ArticlesController::class, 'store']);
+
+Route::get('/article/update/{id}', [ArticlesController::class, 'edit']);
+Route::post('/article/update/{id}', [ArticlesController::class, 'update']);
+Route::post('/article/delete_process/{id}', [ArticlesController::class, 'destroy']);
+
+// Then the dynamic show route
 Route::get('/articles/{id}', [ArticlesController::class, 'show']);
 
 Route::get('/admin/users', [UsersController::class, 'adminIndex']);

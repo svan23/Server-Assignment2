@@ -7,6 +7,12 @@
         <div class="alert alert-danger">{{ session('error') }}</div>
     @endif
 
+    @if(session('username') && session('role') === 'contributor')
+        <div class="mb-3">
+            <a href="/articles/create" class="btn btn-success">Create Article</a>
+        </div>
+    @endif
+
     <div class="row">
         @if($articles->count())
             @foreach ($articles as $article)
@@ -20,7 +26,10 @@
                             <a href="{{ url('/articles', ['id' => $article->article_id]) }}" class="btn btn-primary">Read More</a>
                             @if(session('username') && session('username') === $article->contributor_username)
                                 <a href="{{ url('/article/update', ['id' => $article->article_id]) }}" class="btn btn-secondary">Update</a>
-                                <a href="{{ url('/article/delete_process', ['id' => $article->article_id]) }}" class="btn btn-danger">Delete</a>
+                                <form method="post" action="{{ url('/article/delete_process', ['id' => $article->article_id]) }}" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this article?');">
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
                             @endif
                         </div>
                         <div class="card-footer">
