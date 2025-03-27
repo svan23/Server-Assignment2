@@ -20,14 +20,16 @@ Route::middleware('auth')->group(function () {
     // Admin routes within auth middleware (replace 'auth' with 'admin' if needed)
     Route::get('/admin/users', [UsersController::class, 'adminIndex']);
     Route::post('/admin/users/{id}', [UsersController::class, 'adminUpdate']);
+
+    // Article routes
+    Route::get('/articles/create', [ArticlesController::class, 'create']);
+    Route::post('/articles', [ArticlesController::class, 'store']);
+    Route::get('/article/update/{id}', [ArticlesController::class, 'edit']);
+    Route::post('/article/update/{id}', [ArticlesController::class, 'update']);
+    Route::post('/article/delete_process/{id}', [ArticlesController::class, 'destroy']);
+    Route::get('/articles/{id}', [ArticlesController::class, 'show']);
 });
 
-// Article routes
-Route::get('/articles/create', [ArticlesController::class, 'create']);
-Route::post('/articles', [ArticlesController::class, 'store']);
-Route::get('/article/update/{id}', [ArticlesController::class, 'edit']);
-Route::post('/article/update/{id}', [ArticlesController::class, 'update']);
-Route::post('/article/delete_process/{id}', [ArticlesController::class, 'destroy']);
-Route::get('/articles/{id}', [ArticlesController::class, 'show']);
+
 
 require __DIR__.'/auth.php';
