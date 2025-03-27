@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ArticlesController extends Controller
 {
@@ -27,8 +28,8 @@ class ArticlesController extends Controller
      */
     public function create()
     {
-        // Only allow approved contributors; login check already ensures approval.
-        if (session('role') !== 'contributor') {
+        // Only allow approved contributors; using Auth facade instead of session
+        if (Auth::user()->role !== 'contributor') {
             abort(403, 'Unauthorized access');
         }
 
@@ -42,20 +43,20 @@ class ArticlesController extends Controller
     {
         // Validate and store article data, e.g.
         $request->validate([
-            'title' => 'required|string|max:255',
-            'body'  => 'required',
+            'title'      => 'required|string|max:255',
+            'body'       => 'required',
             'start_date' => 'required|date',
             'end_date'   => 'required|date|after_or_equal:start_date',
         ]);
 
-        // Create new article; assuming that contributor_username is the logged in user's username
-        \App\Models\Article::create([
+        // Create new article using Auth user instead of session data
+        Article::create([
             'title'                => $request->title,
             'body'                 => $request->body,
             'create_date'          => date("Y-m-d"),
             'start_date'           => $request->start_date,
             'end_date'             => $request->end_date,
-            'contributor_username' => session('username'),
+            'contributor_username' => Auth::user()->username,
         ]);
 
         return redirect()->route('index')->with('success', 'Article created successfully.');
@@ -77,8 +78,8 @@ class ArticlesController extends Controller
     {
         $article = Article::where('article_id', $id)->firstOrFail();
 
-        // Ensure that only the creator can edit
-        if (session('username') !== $article->contributor_username) {
+        // Ensure that only the creator can edit using Auth
+        if (Auth::user()->username !== $article->contributor_username) {
             abort(403, 'Unauthorized access.');
         }
 
@@ -92,8 +93,8 @@ class ArticlesController extends Controller
     {
         $article = Article::where('article_id', $id)->firstOrFail();
 
-        // Ensure that only the creator can update
-        if (session('username') !== $article->contributor_username) {
+        // Ensure that only the creator can update using Auth
+        if (Auth::user()->username !== $article->contributor_username) {
             abort(403, 'Unauthorized access.');
         }
 
@@ -105,14 +106,10 @@ class ArticlesController extends Controller
             'end_date'   => 'required|date|after_or_equal:start_date',
         ]);
 
-        // Debug: Uncomment the next line to inspect $data
-        // dd($data);
-
         $article->update($data);
 
         return redirect()->route('index')->with('success', 'Article updated successfully.');
     }
-
 
     /**
      * Remove the specified resource from storage.
@@ -121,8 +118,8 @@ class ArticlesController extends Controller
     {
         $article = Article::where('article_id', $id)->firstOrFail();
 
-        // Ensure that only the owner can delete the article
-        if (session('username') !== $article->contributor_username) {
+        // Ensure that only the owner can delete the article using Auth
+        if (Auth::user()->username !== $article->contributor_username) {
             abort(403, 'Unauthorized access.');
         }
 

@@ -2,9 +2,9 @@
 @section('title', 'Manage Users')
 @section('content')
     <h1>Manage Users</h1>
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
+
+    {{-- Display flash success messages using a Breeze component --}}
+    <x-auth-session-status class="mb-4 alert alert-success" :status="session('success')" />
 
     <table class="table">
        <thead>

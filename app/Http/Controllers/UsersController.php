@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
     public function adminIndex()
     {
-        // Only allow admin users to access this page.
-        $admin = User::where('username', session('username'))->first();
+        // Get the currently authenticated user using Auth and ensure they are admin.
+        $admin = Auth::user();
         if (!$admin || $admin->role !== 'admin') {
             abort(403, 'Unauthorized access');
         }
@@ -21,15 +22,15 @@ class UsersController extends Controller
 
     public function adminUpdate(Request $request, $id)
     {
-        // Only allow admin users to update user accounts.
-        $admin = User::where('username', session('username'))->first();
+        // Get the currently authenticated user using Auth and ensure they are admin.
+        $admin = Auth::user();
         if (!$admin || $admin->role !== 'admin') {
             abort(403, 'Unauthorized access');
         }
 
         $validated = $request->validate([
-             'is_approved' => 'required|boolean',
-             'role'        => 'required|in:admin,contributor'
+            'is_approved' => 'required|boolean',
+            'role'        => 'required|in:admin,contributor'
         ]);
 
         $user = User::findOrFail($id);
@@ -43,7 +44,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        //
+        // ...
     }
 
     /**
@@ -51,7 +52,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
+        // ...
     }
 
     /**
@@ -59,7 +60,7 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // ...
     }
 
     /**
@@ -67,7 +68,7 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
-        //
+        // ...
     }
 
     /**
@@ -75,7 +76,7 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        // ...
     }
 
     /**
@@ -83,7 +84,7 @@ class UsersController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        // ...
     }
 
     /**
@@ -91,6 +92,6 @@ class UsersController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        // ...
     }
 }

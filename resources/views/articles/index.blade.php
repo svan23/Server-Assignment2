@@ -8,15 +8,19 @@
         </div>
     </div>
     
+    {{-- Display error messages (still using session for flash messages) --}}
     @if(session('error'))
         <div class="alert alert-danger">{{ session('error') }}</div>
     @endif
 
-    @if(session('username') && session('role') === 'contributor')
-        <div class="mb-4 text-end">
-            <a href="/articles/create" class="btn btn-success">Create Article</a>
-        </div>
-    @endif
+    {{-- Only allow contributors to see the Create Article button --}}
+    @auth
+        @if(Auth::user()->role === 'contributor')
+            <div class="mb-4 text-end">
+                <a href="/articles/create" class="btn btn-success">Create Article</a>
+            </div>
+        @endif
+    @endauth
 
     <div class="row">
         @if($articles->count())
@@ -28,19 +32,29 @@
                             <p class="card-text">
                                 {{ \Illuminate\Support\Str::limit(strip_tags($article->body), 100, '...') }}
                             </p>
-                            <p class="mb-1"><small class="text-muted">Start: {{ $article->start_date }}</small></p>
-                            <p class="mb-1"><small class="text-muted">End: {{ $article->end_date }}</small></p>
+                            <p class="mb-1">
+                                <small class="text-muted">Start: {{ $article->start_date }}</small>
+                            </p>
+                            <p class="mb-1">
+                                <small class="text-muted">End: {{ $article->end_date }}</small>
+                            </p>
                             <a href="{{ url('/articles', ['id' => $article->article_id]) }}" class="btn btn-primary btn-sm mt-2">Read More</a>
-                            @if(session('username') && session('username') === $article->contributor_username)
-                                <a href="{{ url('/article/update', ['id' => $article->article_id]) }}" class="btn btn-secondary btn-sm mt-2">Update</a>
-                                <form method="post" action="{{ url('/article/delete_process', ['id' => $article->article_id]) }}" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this article?');">
-                                    @csrf
-                                    <button type="submit" class="btn btn-danger btn-sm mt-2">Delete</button>
-                                </form>
-                            @endif
+                            
+                            {{-- Only allow the article creator to see update/delete options --}}
+                            @auth
+                                @if(Auth::user()->username === $article->contributor_username)
+                                    <a href="{{ url('/article/update', ['id' => $article->article_id]) }}" class="btn btn-secondary btn-sm mt-2">Update</a>
+                                    <form method="post" action="{{ url('/article/delete_process', ['id' => $article->article_id]) }}" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this article?');">
+                                        @csrf
+                                        <button type="submit" class="btn btn-danger btn-sm mt-2">Delete</button>
+                                    </form>
+                                @endif
+                            @endauth
                         </div>
                         <div class="card-footer">
-                            <small class="text-muted">By {{ $article->contributor_username }} on {{ $article->create_date }}</small>
+                            <small class="text-muted">
+                                By {{ $article->contributor_username }} on {{ $article->create_date }}
+                            </small>
                         </div>
                     </div>
                 </div>
