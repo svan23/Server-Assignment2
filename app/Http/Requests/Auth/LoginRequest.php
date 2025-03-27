@@ -48,6 +48,15 @@ class LoginRequest extends FormRequest
                 'username' => trans('auth.failed'),
             ]);
         }
+        
+        // Check if the logged-in user is approved
+        $user = Auth::user();
+        if (!$user->is_approved) {
+            Auth::logout();
+            throw ValidationException::withMessages([
+                'username' => 'user not approved',
+            ]);
+        }
 
         RateLimiter::clear($this->throttleKey());
     }
