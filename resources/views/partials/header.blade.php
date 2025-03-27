@@ -9,8 +9,8 @@
                 <li class="nav-item d-flex align-items-center">
                     <a href="/about" class="nav-link arizonia-text" style="font-size: 1.25rem;">About</a>
                 </li>
-                @if(session('username'))
-                    @if(session('role') === 'admin')
+                @auth
+                    @if(Auth::user()->role === 'admin')
                         <li class="nav-item d-flex align-items-center">
                             <a href="/admin/users" class="nav-link" style="font-weight: 500;">Admin</a>
                         </li>
@@ -28,7 +28,7 @@
                     <li class="nav-item d-flex align-items-center">
                         <a href="/register" class="nav-link" style="font-weight: 500;">Register</a>
                     </li>
-                @endif
+                @endauth
             </ul>
         </div>
     </div>
