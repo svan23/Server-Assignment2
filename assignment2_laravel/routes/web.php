@@ -11,6 +11,7 @@ Route::get('/about', function () {
 
 // Use ArticlesController@index as the homepage (index route)
 Route::get('/', [ArticlesController::class, 'index'])->name('index');
+Route::get('/articles/{id}', [ArticlesController::class, 'show']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -22,12 +23,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/users/{id}', [UsersController::class, 'adminUpdate']);
 
     // Article routes
-    Route::get('/articles/create', [ArticlesController::class, 'create']);
+    Route::get('/create_article', [ArticlesController::class, 'create']);
+    Route::get('/update_article/{id}', [ArticlesController::class, 'edit']);
     Route::post('/articles', [ArticlesController::class, 'store']);
-    Route::get('/article/update/{id}', [ArticlesController::class, 'edit']);
-    Route::post('/article/update/{id}', [ArticlesController::class, 'update']);
-    Route::post('/article/delete_process/{id}', [ArticlesController::class, 'destroy']);
-    Route::get('/articles/{id}', [ArticlesController::class, 'show']);
+    Route::put('/articles/{id}', [ArticlesController::class, 'update']);
+    Route::delete('/articles/{id}', [ArticlesController::class, 'destroy']);
 });
 
 

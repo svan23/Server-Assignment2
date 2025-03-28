@@ -11,8 +11,9 @@
             </ul>
         </div>
     @endif
-    <form method="post" action="{{ url('/article/update', ['id' => $article->article_id]) }}">
+    <form method="post" action="{{ url('/articles', ['id' => $article->article_id]) }}">
         @csrf
+        @method('PUT')
         <div class="mb-3">
             <label for="title" class="form-label">Title</label>
             <input type="text" name="title" id="title" class="form-control" required value="{{ old('title', $article->title) }}">

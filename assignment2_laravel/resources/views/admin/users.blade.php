@@ -34,7 +34,7 @@
                          <option value="contributor" {{ $user->role === 'contributor' ? 'selected' : '' }}>Contributor</option>
                          <option value="admin" {{ $user->role === 'admin' ? 'selected' : '' }}>Admin</option>
                       </select>
-                      <button type="submit" class="btn btn-primary btn-sm">Update</button>
+                      <button type="submit" class="btn btn-primary" style ="background-color: #f3ced4; border-color: #ffffff; color: rgb(144, 106, 127); font-weight: bold;">Update</button>
                    </form>
                 </td>
              </tr>

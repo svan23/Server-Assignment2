@@ -7,9 +7,7 @@ use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
@@ -33,7 +31,7 @@ class RegisteredUserController extends Controller
             'username'   => 'required|email|unique:users,username',
             'password'   => [
                 'required',
-                'bail', // stop on first failure
+                'bail',
                 'min:8',
                 'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).+$/'
             ],
@@ -49,14 +47,13 @@ class RegisteredUserController extends Controller
             'password'      => password_hash($request->password, PASSWORD_DEFAULT),
             'first_name'    => $request->first_name,
             'last_name'     => $request->last_name,
-            'is_approved'   => false,
+            'is_approved'   => false, // User must be approved before login
             'role'          => 'contributor'
         ]);
 
         event(new Registered($user));
 
-        Auth::login($user);
-
-        return redirect(route('index', absolute: false));
+        // Do not auto-login. Instead, redirect to login with a status message.
+        return redirect(route('login', false))->with('status', 'Registration successful. Your account is pending approval before you can log in.');
     }
 }

@@ -1,4 +1,4 @@
-<footer class="py-3 mt-4" style="background: linear-gradient(45deg, #f4d7d3, #f8e8ea); box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);">
+<footer class="py-3 mt-4" style="background: linear-gradient(45deg, #dfbcc2, #f8e8ea); box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);">
     <div class="container" style="max-width: 960px;">
         <div class="row align-items-center">
             @auth

@@ -29,6 +29,6 @@
             <label for="end_date" class="form-label">End Date</label>
             <input type="date" name="end_date" id="end_date" class="form-control" required value="{{ old('end_date') }}">
         </div>
-        <button type="submit" class="btn btn-primary">Submit Article</button>
+        <button type="submit" class="btn btn-primary" style ="background-color: #f3ced4; border-color: #ffffff; color: rgb(144, 106, 127); font-weight: bold;">Submit Article</button>
     </form>
 @endsection
