@@ -20,6 +20,10 @@ export function ArticlesPage() {
   const [loading, setLoading] = useState<boolean>(true);
   const navigate = useNavigate();
 
+  // Extract start and end dates from the URL
+  const startDate = "2025-01-25"; // The start date from the URL
+  const endDate = "2025-12-31"; // The end date from the URL
+
   useEffect(() => {
     fetch(fetchUrl)
       .then((response) => response.json())
@@ -35,13 +39,14 @@ export function ArticlesPage() {
 
   // Function to remove HTML tags from article body
   const cleanHtmlContent = (content: string) => {
-    // Remove any HTML tags and return the plain text
     return content.replace(/<\/?[^>]+(>|$)/g, "");
   };
 
   return (
     <div className="articles-page-container">
-      <h1 className="articles-header">Latest Articles</h1>
+      <h1 className="articles-header">
+        Latest Articles from {startDate} to {endDate}
+      </h1>
       {loading ? (
         <p className="loading-message">Loading...</p>
       ) : (
