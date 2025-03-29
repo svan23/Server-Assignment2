@@ -14,7 +14,7 @@
                 </div>
             @else
                 <div class="col-12 text-center">
-                    <p class="mb-0" style="font-size: 0.9rem;"><strong>Team members: James, Dina, Vanessa La</strong></p>
+                    <p class="mb-0" style="font-size: 0.9rem;"><strong>Team members: James Tolen, Zhaoqiu Ding, Vanessa La</strong></p>
                     <p class="mb-0" style="font-size: 0.8rem;">&copy; {{ date('Y') }} Sugar & Slice</p>
                 </div>
             @endauth
