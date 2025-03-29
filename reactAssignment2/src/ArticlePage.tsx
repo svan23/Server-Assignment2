@@ -13,6 +13,7 @@ interface Article {
   start_date: string;
   end_date: string;
   contributor_username: string;
+  contributor_name: string;
 }
 
 export function ArticlesPage() {
@@ -56,7 +57,7 @@ export function ArticlesPage() {
                   ? cleanHtmlContent(article.body).substring(0, 100) + "..."
                   : cleanHtmlContent(article.body)}
               </p>
-              <p className="article-author">By {article.contributor_username}</p>
+              <p className="article-author">By {article.contributor_name}</p>
               <button
                 className="read-more-button"
                 onClick={() => navigate(`/articles/${article.article_id}`)}
