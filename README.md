@@ -1,3 +1,15 @@
+1. cd into the assignment2_laravel folder
+## Setup database
+`php artisan migrate`
+`php artisan migrate:refresh --seed`
+
+## Start server
+`php artisan serve --port=8888`
+
+
+
+
+
 How to run React App:
 
 **Make sure laravel app is running and is using http://127.0.0.1:8888.
