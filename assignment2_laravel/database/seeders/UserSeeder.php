@@ -41,8 +41,8 @@ class UserSeeder extends Seeder
             [
                 'username'   => 'dina@bcit.ca',
                 'password'   => password_hash('P@$$w0rd', PASSWORD_DEFAULT),
-                'first_name' => 'Zhao Qiu',
-                'last_name'  => 'D',
+                'first_name' => 'Zhaoqiu',
+                'last_name'  => 'Ding',
                 'is_approved'=> true,
                 'role'       => 'contributor',
             ],

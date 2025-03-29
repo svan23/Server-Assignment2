@@ -3,13 +3,13 @@
 
 @section('content')
     {{-- If there's at least one article, show it in the hero section --}}
-    @if($articles->count())
+    @if ($articles->count())
         @php
             $featuredArticle = $articles->first();
         @endphp
 
-        <div class="position-relative mb-4" 
-             style="background: url('https://i.pinimg.com/736x/b2/75/a9/b275a93889acbb4eb8c993edc6bc44bc.jpg') 
+        <div class="position-relative mb-4"
+            style="background: url('https://i.pinimg.com/736x/b2/75/a9/b275a93889acbb4eb8c993edc6bc44bc.jpg') 
                     no-repeat center center; 
                     background-size: cover; 
                     height: 500px;">
@@ -26,8 +26,7 @@
                     {{ \Illuminate\Support\Str::limit(strip_tags($featuredArticle->body), 200, '...') }}
                 </p>
                 <div>
-                    <a href="{{ url('/articles', ['id' => $featuredArticle->article_id]) }}" 
-                        class="btn btn-primary"
+                    <a href="{{ url('/articles', ['id' => $featuredArticle->article_id]) }}" class="btn btn-primary"
                         style="background-color: #dfbcc2; border-color: #ffffff; color: white; font-weight: bold;">
                         Read More
                     </a>
@@ -37,15 +36,17 @@
     @endif
 
     {{-- Display error messages (flash) --}}
-    @if(session('error'))
+    @if (session('error'))
         <div class="alert alert-danger">{{ session('error') }}</div>
     @endif
 
     {{-- Create Article button (only for contributors) --}}
     @auth
-        @if(Auth::user()->role === 'contributor')
+        @if (Auth::user()->role === 'contributor')
             <div class="container mb-4 text-end">
-                <a href="/create_article" class="btn btn-success" style="background-color: #f3ced4; border-color: #ffffff; color: rgb(144, 106, 127); font-weight: bold;">Create Article</a>
+                <a href="/create_article" class="btn btn-success"
+                    style="background-color: #f3ced4; border-color: #ffffff; color: rgb(144, 106, 127); font-weight: bold;">Create
+                    Article</a>
             </div>
         @endif
     @endauth
@@ -53,7 +54,7 @@
     {{-- ARTICLES GRID (skip the first if it was used as the hero) --}}
     <div class="container">
         <div class="row">
-            @if($articles->count() > 1)
+            @if ($articles->count() > 1)
                 @foreach ($articles->skip(1) as $article)
                     <div class="col-md-4">
                         <div class="card mb-4 shadow-sm h-100">
@@ -69,25 +70,25 @@
                                     <small class="text-muted">End: {{ $article->end_date }}</small>
                                 </p>
                                 <div class="mt-auto">
-                                    <a href="{{ url('/articles', ['id' => $article->article_id]) }}" 
-                                       class="btn btn-sm mt-2"
-                                       style="background-color: #dfbcc2; border-color: #FFC0CB; color: white; font-weight: bold;">
+                                    <a href="{{ url('/articles', ['id' => $article->article_id]) }}" class="btn btn-sm mt-2"
+                                        style="background-color: #dfbcc2; border-color: #FFC0CB; color: white; font-weight: bold;">
                                         Read More
                                     </a>
                                     {{-- Update/Delete for the article owner --}}
                                     @auth
-                                        @if(Auth::user()->username === $article->contributor_username)
-                                            <a href="{{ url('/update_article', ['id' => $article->article_id]) }}" 
-                                               class="btn btn-secondary btn-sm mt-2">
+                                        @if (Auth::user()->username === $article->contributor_username)
+                                            <a href="{{ url('/update_article', ['id' => $article->article_id]) }}"
+                                                class="btn btn-secondary btn-sm mt-2">
                                                 Update
                                             </a>
-                                            <form method="post" 
-                                            action="{{ url('/articles', ['id' => $article->article_id]) }}" 
-                                            class="d-inline" 
-                                            onsubmit="return confirm('Are you sure you want to delete this article?');">
+                                            <form method="post"
+                                                action="{{ url('/articles', ['id' => $article->article_id]) }}"
+                                                class="d-inline"
+                                                onsubmit="return confirm('Are you sure you want to delete this article?');">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm mt-2"  style ="background-color: #bd6271;">
+                                                <button type="submit" class="btn btn-danger btn-sm mt-2"
+                                                    style ="background-color: #bd6271;">
                                                     Delete
                                                 </button>
                                             </form>
@@ -97,7 +98,7 @@
                             </div>
                             <div class="card-footer">
                                 <small class="text-muted">
-                                    By {{ $article->contributor_username }} 
+                                    By {{ $article->contributor_name }}
                                     on {{ $article->create_date }}
                                 </small>
                             </div>

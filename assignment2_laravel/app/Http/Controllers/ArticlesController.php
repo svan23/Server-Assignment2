@@ -18,9 +18,19 @@ class ArticlesController extends Controller
 
         // Filter articles where the current date is within the start and end dates
         $articles = Article::where('start_date', '<=', $today)
-                           ->where('end_date', '>=', $today)
-                           ->get();
+            ->where('end_date', '>=', $today)
+            ->get();
 
+        // Add contributor name to each article
+        foreach ($articles as $article) {
+
+            $contributor = User::where('username', $article->contributor_username)->first();
+            if ($contributor) {
+                $article->contributor_name = $contributor->first_name . ' ' . $contributor->last_name;
+            } else {
+                $article->contributor = null;
+            }
+        }
         return view('articles.index', ['articles' => $articles]);
     }
 

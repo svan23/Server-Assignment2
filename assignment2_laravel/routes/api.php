@@ -11,6 +11,16 @@ Route::get('/articles', function () {
     $articles = Article::where('start_date', '<=', $today)
         ->where('end_date', '>=', value: $today)
         ->get();
+
+    // Add contributor name to each article
+    foreach ($articles as $article) {
+        $contributor = User::where('username', $article->contributor_username)->first();
+        if ($contributor) {
+            $article->contributor_name = $contributor->first_name . ' ' . $contributor->last_name;
+        } else {
+            $article->contributor = null;
+        }
+    }
     return $articles;
 });
 
