@@ -87,7 +87,7 @@
                                             onsubmit="return confirm('Are you sure you want to delete this article?');">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm mt-2">
+                                                <button type="submit" class="btn btn-danger btn-sm mt-2"  style ="background-color: #bd6271;">
                                                     Delete
                                                 </button>
                                             </form>
