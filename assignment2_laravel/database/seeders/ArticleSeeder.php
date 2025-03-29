@@ -46,7 +46,7 @@ class ArticleSeeder extends Seeder
                 'contributor_username' => 'vanessa@bcit.ca'
             ],
             [
-                'title'                => 'panish Flan: A Creamy Delight',
+                'title'                => 'Spanish Flan: A Creamy Delight',
                 'body'                 => '<p>Spanish flan, also known as leche flan, is a beloved dessert that has become a staple in Spanish-speaking countries around the world. This smooth, creamy custard is typically made with simple ingredients: eggs, milk, sugar, and vanilla. The result is a rich, velvety texture that melts in your mouth with each spoonful. Spanish flan is often topped with a luscious caramel sauce, which adds a perfect balance of sweetness and slight bitterness to the dish.</p>',
                 'create_date'          => '2025-03-16',
                 'start_date'           => '2025-03-21',
