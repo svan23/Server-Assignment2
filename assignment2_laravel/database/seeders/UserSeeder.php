@@ -29,7 +29,32 @@ class UserSeeder extends Seeder
                 'last_name'  => 'CC',
                 'is_approved'=> true,
                 'role'       => 'contributor',
+            ],
+            [
+                'username'   => 'vanessa@bcit.ca',
+                'password'   => password_hash('P@$$w0rd', PASSWORD_DEFAULT),
+                'first_name' => 'Vanessa',
+                'last_name'  => 'La',
+                'is_approved'=> true,
+                'role'       => 'contributor',
+            ],
+            [
+                'username'   => 'dina@bcit.ca',
+                'password'   => password_hash('P@$$w0rd', PASSWORD_DEFAULT),
+                'first_name' => 'Zhao Qiu',
+                'last_name'  => 'D',
+                'is_approved'=> true,
+                'role'       => 'contributor',
+            ],
+            [
+                'username'   => 'james@bcit.ca',
+                'password'   => password_hash('P@$$w0rd', PASSWORD_DEFAULT),
+                'first_name' => 'James',
+                'last_name'  => 'Tolen',
+                'is_approved'=> true,
+                'role'       => 'contributor',
             ]
+
         ]);
     }
 }

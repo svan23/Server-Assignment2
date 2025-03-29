@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -68,6 +69,12 @@ class ArticlesController extends Controller
     public function show($id)
     {
         $article = Article::where('article_id', $id)->firstOrFail();
+        $contributor = User::where('username', $article->contributor_username)->first();
+        if ($contributor) {
+            $article->contributor_name = $contributor->first_name . ' ' . $contributor->last_name;
+        } else {
+            $article->contributor = null;
+        }
         return view('articles.show', compact('article'));
     }
 

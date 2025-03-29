@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./App.css";
 
-const baseUrl = "http://127.0.0.1:8000";
-const fetchUrl = `${baseUrl}/api/articles?start_date=2025-01-25&end_date=2025-12-31`;
+const baseUrl = "http://127.0.0.1:8888/api";
+const fetchUrl = `${baseUrl}/articles`;
 
 interface Article {
   article_id: number;
@@ -19,10 +19,6 @@ export function ArticlesPage() {
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const navigate = useNavigate();
-
-  // Extract start and end dates from the URL
-  const startDate = "2025-01-25"; // The start date from the URL
-  const endDate = "2025-12-31"; // The end date from the URL
 
   useEffect(() => {
     fetch(fetchUrl)
@@ -45,7 +41,7 @@ export function ArticlesPage() {
   return (
     <div className="articles-page-container">
       <h1 className="articles-header">
-        Latest Articles from {startDate} to {endDate}
+        Articles
       </h1>
       {loading ? (
         <p className="loading-message">Loading...</p>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-const baseUrl = "http://127.0.0.1:8000";
+const baseUrl = "http://127.0.0.1:8888/api";
 
 interface Article {
   article_id: number;
@@ -11,6 +11,7 @@ interface Article {
   start_date: string;
   end_date: string;
   contributor_username: string;
+  contributor_name: string;
 }
 
 export function ArticleDetailPage() {
@@ -27,16 +28,12 @@ export function ArticleDetailPage() {
       return;
     }
 
-    const fetchUrl = `${baseUrl}/api/articles?start_date=2025-01-25&end_date=2025-12-03&article_id=${id}`;
+    const fetchUrl = `${baseUrl}/articles/${id}`;
 
     fetch(fetchUrl)
       .then((response) => response.json())
-      .then((data: Article[]) => {
-        if (data.length > 0) {
-          setArticle(data[0]); // Assuming the API returns only one article
-        } else {
-          setError("Article not found.");
-        }
+      .then((data: Article) => {
+        setArticle(data);
         setLoading(false);
       })
       .catch((error) => {
@@ -71,7 +68,7 @@ export function ArticleDetailPage() {
         <strong>Start Date:</strong> {article.start_date} | <strong>End Date:</strong> {article.end_date}
       </p>
       <p style={{ fontSize: "14px", color: "#777" }}>
-        <strong>Contributor:</strong> {article.contributor_username}
+        <strong>Contributor:</strong> {article.contributor_name}
       </p>
       <div style={{ marginTop: "20px" }}>
         <h2 style={{ fontSize: "20px", fontWeight: "bold", marginBottom: "10px" }}>Article Content:</h2>

@@ -19,7 +19,7 @@ class ArticleSeeder extends Seeder
                 'create_date'          => '2025-03-14',
                 'start_date'           => '2025-01-22',
                 'end_date'             => '2025-05-30',
-                'contributor_username' => 'foodlover@example.com'
+                'contributor_username' => 'vanessa@bcit.ca'
             ],
             [
                 'title'                => 'Irresistible Chocolate Desserts',
@@ -27,7 +27,7 @@ class ArticleSeeder extends Seeder
                 'create_date'          => '2025-03-15',
                 'start_date'           => '2025-03-01',
                 'end_date'             => '2025-05-08',
-                'contributor_username' => 'streetfoodie@example.com'
+                'contributor_username' => 'dina@bcit.ca'
             ],
             [
                 'title'                => 'Classic French Bakery Delights',
@@ -35,7 +35,7 @@ class ArticleSeeder extends Seeder
                 'create_date'          => '2025-03-15',
                 'start_date'           => '2025-03-03',
                 'end_date'             => '2025-05-29',
-                'contributor_username' => 'mediterraneanchef@example.com'
+                'contributor_username' => 'james@bcit.ca'
             ],
             [
                 'title'                => 'Decadent Desserts from France',
@@ -43,7 +43,7 @@ class ArticleSeeder extends Seeder
                 'create_date'          => '2025-03-15',
                 'start_date'           => '2025-03-13',
                 'end_date'             => '2025-05-27',
-                'contributor_username' => 'frenchbaker@example.com'
+                'contributor_username' => 'vanessa@bcit.ca'
             ],
             [
                 'title'                => 'panish Flan: A Creamy Delight',
@@ -51,7 +51,7 @@ class ArticleSeeder extends Seeder
                 'create_date'          => '2025-03-16',
                 'start_date'           => '2025-03-21',
                 'end_date'             => '2025-06-30',
-                'contributor_username' => 'spiceguru@example.com'
+                'contributor_username' => 'dina@bcit.ca'
             ],
             [
                 'title'                => 'Heavenly Desserts Beyond May',
@@ -59,7 +59,7 @@ class ArticleSeeder extends Seeder
                 'create_date'          => '2025-05-10',
                 'start_date'           => '2025-03-15',
                 'end_date'             => '2025-07-15',
-                'contributor_username' => 'dessertmaster@example.com'
+                'contributor_username' => 'james@bcit.ca'
             ],
             [
                 'title'                => 'American Pie Traditions',
@@ -67,7 +67,7 @@ class ArticleSeeder extends Seeder
                 'create_date'          => '2025-03-20',
                 'start_date'           => '2025-03-10',
                 'end_date'             => '2025-06-10',
-                'contributor_username' => 'bbqking@example.com'
+                'contributor_username' => 'vanessa@bcit.ca'
             ],
         ]);
     }
