@@ -33,6 +33,12 @@ export function ArticlesPage() {
       });
   }, []);
 
+  // Function to remove HTML tags from article body
+  const cleanHtmlContent = (content: string) => {
+    // Remove any HTML tags and return the plain text
+    return content.replace(/<\/?[^>]+(>|$)/g, "");
+  };
+
   return (
     <div className="articles-page-container">
       <h1 className="articles-header">Latest Articles</h1>
@@ -41,16 +47,13 @@ export function ArticlesPage() {
       ) : (
         <div className="articles-list">
           {articles.map((article) => (
-            <div
-              key={article.article_id}
-              className="article-card"
-            >
+            <div key={article.article_id} className="article-card">
               <h2 className="article-title">{article.title}</h2>
               <p className="article-date">{article.create_date}</p>
               <p className="article-excerpt">
-                {article.body.length > 100
-                  ? article.body.substring(0, 100) + "..."
-                  : article.body}
+                {cleanHtmlContent(article.body).length > 100
+                  ? cleanHtmlContent(article.body).substring(0, 100) + "..."
+                  : cleanHtmlContent(article.body)}
               </p>
               <p className="article-author">By {article.contributor_username}</p>
               <button

@@ -58,6 +58,9 @@ export function ArticleDetailPage() {
     return <p>No article found.</p>;
   }
 
+  // Remove <p> tags from the article's body content
+  const cleanedBody = article.body.replace(/<\/?p>/g, "");
+
   return (
     <div style={{ maxWidth: "800px", margin: "0 auto", padding: "20px", fontFamily: "Arial, sans-serif" }}>
       <h1 style={{ fontSize: "28px", fontWeight: "bold", color: "#333" }}>{article.title}</h1>
@@ -72,9 +75,16 @@ export function ArticleDetailPage() {
       </p>
       <div style={{ marginTop: "20px" }}>
         <h2 style={{ fontSize: "20px", fontWeight: "bold", marginBottom: "10px" }}>Article Content:</h2>
-        <p style={{ whiteSpace: "pre-wrap", lineHeight: "1.6", fontSize: "16px", color: "#333" }}>
-          {article.body}
-        </p>
+        {/* Use dangerouslySetInnerHTML to render the HTML content */}
+        <div
+          style={{
+            whiteSpace: "pre-wrap", // Preserve line breaks
+            lineHeight: "1.6",
+            fontSize: "16px",
+            color: "#333",
+          }}
+          dangerouslySetInnerHTML={{ __html: cleanedBody }}
+        />
       </div>
       <button
         onClick={() => navigate("/")}
